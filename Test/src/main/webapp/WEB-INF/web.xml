@@ -14,11 +14,19 @@
 		<session-timeout>60</session-timeout>
 	</session-config>
 	<servlet>
+		<servlet-name>Employee</servlet-name>
+		<servlet-class>com.mspr.servlets.Employee</servlet-class>	
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Employee</servlet-name>
+		<url-pattern>/employee</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>Routeur</servlet-name>
-     	<servlet-class>back.servlet.Routeur</servlet-class>
-    </servlet>
+		<servlet-class>back.servlet.Routeur</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Routeur</servlet-name>
-       	<url-pattern>/Routeur</url-pattern>
-    </servlet-mapping>
+		<url-pattern>/Routeur</url-pattern>
+	</servlet-mapping>
 </web-app>
