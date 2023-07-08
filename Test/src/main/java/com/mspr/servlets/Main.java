@@ -3,6 +3,8 @@ package com.mspr.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import com.mspr.beans.Utilisateur;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,10 +30,12 @@ public class Main extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String message = "Au revoir !";
-		request.setAttribute("variable", message);
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setPrenom("Fred");
+		utilisateur.setNom("Oudjoudi");
+		utilisateur.setActif(true);
+		
+		request.setAttribute("utilisateur", utilisateur);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
 	}
 
