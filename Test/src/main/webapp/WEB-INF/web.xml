@@ -3,6 +3,7 @@
 	<display-name>CRM ACME</display-name>
 	<description>Gestion client</description>
 	<welcome-file-list>
+		<welcome-file>starter.html</welcome-file>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>index.htm</welcome-file>
