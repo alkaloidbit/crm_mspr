@@ -15,7 +15,7 @@
 	</session-config>
 	<servlet>
 		<servlet-name>Employee</servlet-name>
-		<servlet-class>com.mspr.servlets.Employee</servlet-class>	
+		<servlet-class>com.mspr.servlets.Employee</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Employee</servlet-name>
