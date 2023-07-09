@@ -36,6 +36,7 @@ public class Main extends HttpServlet {
 		utilisateur.setActif(true);
 		
 		request.setAttribute("utilisateur", utilisateur);
+		request.setAttribute("page_name", "Acme Station");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
 	}
 
