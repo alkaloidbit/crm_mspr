@@ -36,6 +36,7 @@ public class OrderDetails extends HttpServlet {
 		utilisateur.setActif(true);
 		request.setAttribute("utilisateur", utilisateur);
 		request.setAttribute("page_name", "Order Details");
+		request.setAttribute("page_content", "content_invoice");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/order_details.jsp").forward(request, response);
 	}
 
