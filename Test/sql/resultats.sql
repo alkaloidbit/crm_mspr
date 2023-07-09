@@ -33,7 +33,7 @@ CREATE TABLE `client` (
   `VILLE` varchar(45) NOT NULL,
   `STIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`CODE_CLIENT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 /*COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +61,7 @@ CREATE TABLE `commande` (
   PRIMARY KEY (`ID_COMMANDE`),
   KEY `FK_COMMANDE_CLIENT_idx` (`CODE_CLIENT`),
   CONSTRAINT `FK_COMMANDE_CLIENT` FOREIGN KEY (`CODE_CLIENT`) REFERENCES `client` (`CODE_CLIENT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -90,7 +90,7 @@ CREATE TABLE `detail_commande` (
   KEY `FK_DETAIL_COMMANDE_PRODUIT_idx` (`CODE_PRODUIT`),
   CONSTRAINT `FK_DETAIL_COMMANDE_COMMANDE` FOREIGN KEY (`ID_COMMANDE`) REFERENCES `commande` (`ID_COMMANDE`),
   CONSTRAINT `FK_DETAIL_COMMANDE_PRODUIT` FOREIGN KEY (`CODE_PRODUIT`) REFERENCES `produit` (`CODE_PRODUIT`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,9 +142,9 @@ CREATE TABLE `role` (
   `LIBELLE_ROLE` varchar(45) NOT NULL,
   `STIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`CODE_ROLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET character_set_client = @saved_cs_client */
 
 --
 -- Dumping data for table `role`
@@ -170,7 +170,7 @@ CREATE TABLE `utilisateur` (
   PRIMARY KEY (`LOGIN`),
   KEY `FK_UTILISATEUR_ROLE_idx` (`CODE_ROLE`),
   CONSTRAINT `FK_UTILISATEUR_ROLE` FOREIGN KEY (`CODE_ROLE`) REFERENCES `role` (`CODE_ROLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
