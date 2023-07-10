@@ -15,7 +15,7 @@
 	</session-config>
 	<servlet>
 		<servlet-name>Routeur</servlet-name>
-     	<servlet-class>back.servlet.Routeur</servlet-class>
+     	<servlet-class>acme.back.servlet.Routeur</servlet-class>
     </servlet>
 	<servlet-mapping>
 		<servlet-name>Routeur</servlet-name>
