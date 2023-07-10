@@ -1,11 +1,11 @@
-package back.metier;
+package acme.back.metier;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
-import back.db.DetailCommandeDb;
-import util.BizException;
-import util.Connexion;
+import acme.back.db.DetailCommandeDb;
+import acme.util.BizException;
+import acme.util.Connexion;
 
 public class DetailCommande {
 

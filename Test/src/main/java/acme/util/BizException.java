@@ -1,4 +1,4 @@
-package util;
+package acme.util;
 
 public class BizException extends Exception {
 	

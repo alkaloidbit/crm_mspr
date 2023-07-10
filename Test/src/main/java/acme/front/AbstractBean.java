@@ -1,4 +1,4 @@
-package front;
+package acme.front;
 
 import java.io.Serializable;
 

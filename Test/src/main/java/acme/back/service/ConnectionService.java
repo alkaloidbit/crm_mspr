@@ -1,11 +1,11 @@
-package back.service;
+package acme.back.service;
 
 import java.util.ArrayList;
 
-import back.db.RoleDb;
-import back.metier.Role;
-import util.BizException;
-import util.Connexion;
+import acme.back.db.RoleDb;
+import acme.back.metier.Role;
+import acme.util.BizException;
+import acme.util.Connexion;
 
 public class ConnectionService {
 

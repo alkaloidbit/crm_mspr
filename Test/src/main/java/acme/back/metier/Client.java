@@ -1,9 +1,9 @@
-package back.metier;
+package acme.back.metier;
 import java.sql.Timestamp;
 
-import back.db.ClientDb;
-import util.BizException;
-import util.Connexion;
+import acme.back.db.ClientDb;
+import acme.util.BizException;
+import acme.util.Connexion;
 
 
 public class Client {

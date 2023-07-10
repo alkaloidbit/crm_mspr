@@ -1,15 +1,15 @@
-package back.db;
+package acme.back.db;
 
-import util.Connexion;
-import util.BizException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import back.metier.Utilisateur;
+import acme.back.metier.DetailCommande;
+import acme.util.BizException;
+import acme.util.Connexion;
 
-public class UtilisateurDb {
+public class DetailCommandeDb {
 
 	private static PreparedStatement selectAll;
 	private static PreparedStatement selectByKey;
@@ -17,42 +17,45 @@ public class UtilisateurDb {
 	private static PreparedStatement insert;
 	private static PreparedStatement deleteByKey;
 
-	public UtilisateurDb(){}
+	public DetailCommandeDb(){}
 
 	private static void statementSelectAll(Connexion c) throws SQLException {
 		selectAll = c.getConnection().prepareStatement(
-		"SELECT LOGIN, PSW, CODE_ROLE, STIMESTAMP FROM utilisateur");
+		"SELECT ID_COMMANDE, CODE_PRODUIT, QUANTITE, STIMESTAMP FROM detail_commande");
 	}
 	private static void statementSelectByKey(Connexion c) throws SQLException {
 		selectByKey = c.getConnection().prepareStatement(
-		"SELECT LOGIN, PSW, CODE_ROLE, STIMESTAMP FROM utilisateur " + 
-		"WHERE LOGIN = ? " ); 
+		"SELECT ID_COMMANDE, CODE_PRODUIT, QUANTITE, STIMESTAMP FROM detail_commande " + 
+		"WHERE ID_COMMANDE = ? " + 
+		"AND CODE_PRODUIT = ? " ); 
  	}
 	private static void statementUpdateByKey(Connexion c) throws SQLException {
 		updateByKey = c.getConnection().prepareStatement(
-		"UPDATE utilisateur " + 
-		"SET 		PSW = ?, " +  
-		"CODE_ROLE = ? " + 
-		"WHERE LOGIN = ? "); 
+		"UPDATE detail_commande " + 
+		"SET 		QUANTITE = ? " + 
+		"WHERE ID_COMMANDE = ? " +
+		"AND CODE_PRODUIT = ? "); 
 	}
 	private static void statementInsert(Connexion c) throws SQLException {
 		insert = c.getConnection().prepareStatement(
-		"INSERT INTO utilisateur " + 
-		"(LOGIN, PSW, CODE_ROLE) " + 
+		"INSERT INTO detail_commande " + 
+		"(ID_COMMANDE, CODE_PRODUIT, QUANTITE) " + 
 		"values(?, ?, ?)");
 	}
 	private static void statementDeleteByKey(Connexion c) throws SQLException {
 		deleteByKey = c.getConnection().prepareStatement(
-		"DELETE FROM utilisateur " + 
-		"WHERE LOGIN = ? "); 
+		"DELETE FROM detail_commande " + 
+		"WHERE ID_COMMANDE = ? " +
+		"AND CODE_PRODUIT = ? "); 
 	}
-	public static int deleteByKey(Connexion c, Utilisateur t) throws BizException {
+	public static int deleteByKey(Connexion c, DetailCommande t) throws BizException {
 		ResultSet rs = null;
 		int result;
 		try {
 			statementSelectByKey(c);
 			statementDeleteByKey(c);
-			selectByKey.setString(1, t.getLogin());
+			selectByKey.setInt(1, t.getIdCommande());
+			selectByKey.setString(2, t.getCodeProduit());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if(rs.next()) {
@@ -61,7 +64,8 @@ public class UtilisateurDb {
 				}
 			}
 			else { throw new BizException("Data modified by another user"); }
-			deleteByKey.setString(1, t.getLogin());
+			deleteByKey.setInt(1, t.getIdCommande());
+			deleteByKey.setString(2, t.getCodeProduit());
 			result = deleteByKey.executeUpdate();
 			if (rs != null) rs.close();
 			return result;
@@ -70,19 +74,20 @@ public class UtilisateurDb {
 			throw new BizException(sqle.getMessage());
 		}
 	}
-	public static int insert(Connexion c, Utilisateur t) throws BizException {
+	public static int insert(Connexion c, DetailCommande t) throws BizException {
 		ResultSet rs = null;
 		int result;
 		try {
 			statementSelectByKey(c);
 			statementInsert(c);
-			selectByKey.setString(1, t.getLogin());
+			selectByKey.setInt(1, t.getIdCommande());
+			selectByKey.setString(2, t.getCodeProduit());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if (rs.next()) throw new BizException("Data already exists");
-			insert.setString(1, t.getLogin());
-			insert.setString(2, t.getPsw());
-			insert.setString(3, t.getCodeRole());
+			insert.setInt(1, t.getIdCommande());
+			insert.setString(2, t.getCodeProduit());
+			insert.setInt(3, t.getQuantite());
 			result = insert.executeUpdate();
 			if (rs != null) rs.close();
 			return result;
@@ -91,13 +96,14 @@ public class UtilisateurDb {
 			throw new BizException(sqle.getMessage());
 		}
 	}
-	public static int updateByKey(Connexion c, Utilisateur t) throws BizException {
+	public static int updateByKey(Connexion c, DetailCommande t) throws BizException {
 		ResultSet rs = null;
 		int result;
 		try {
 			statementSelectByKey(c);
 			statementUpdateByKey(c);
-			selectByKey.setString(1, t.getLogin());
+			selectByKey.setInt(1, t.getIdCommande());
+			selectByKey.setString(2, t.getCodeProduit());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if(rs.next()) {
@@ -106,9 +112,9 @@ public class UtilisateurDb {
 				}
 			}
 			else { throw new BizException("Data modified by another user"); }
-			updateByKey.setString(1, t.getPsw());
-			updateByKey.setString(2, t.getCodeRole());
-			updateByKey.setString(3, t.getLogin());
+			updateByKey.setInt(1, t.getQuantite());
+			updateByKey.setInt(2, t.getIdCommande());
+			updateByKey.setString(3, t.getCodeProduit());
 			result = updateByKey.executeUpdate();
 			if (rs != null) rs.close();
 			return result;
@@ -117,18 +123,19 @@ public class UtilisateurDb {
 			throw new BizException(sqle.getMessage());
 		}
 	}
-	public static Utilisateur getByKey(Connexion c, Utilisateur t) throws BizException {
+	public static DetailCommande getByKey(Connexion c, DetailCommande t) throws BizException {
 		ResultSet rs = null;
-		Utilisateur result = new Utilisateur();
+		DetailCommande result = new DetailCommande();
 		try {
 			statementSelectByKey(c);
-			selectByKey.setString(1, t.getLogin());
+			selectByKey.setInt(1, t.getIdCommande());
+			selectByKey.setString(2, t.getCodeProduit());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if (rs.next()) {
-				result.setLogin(rs.getString(1));
-				result.setPsw(rs.getString(2));
-				result.setCodeRole(rs.getString(3));
+				result.setIdCommande(rs.getInt(1));
+				result.setCodeProduit(rs.getString(2));
+				result.setQuantite(rs.getInt(3));
 				result.setStimestamp(rs.getTimestamp(4));
 			}
 			if (rs != null) rs.close();
@@ -147,10 +154,10 @@ public class UtilisateurDb {
 			result = new ArrayList();
 			rs.beforeFirst();
 			while (rs.next()) {
-				Utilisateur t = new Utilisateur();
-				t.setLogin(rs.getString(1));
-				t.setPsw(rs.getString(2));
-				t.setCodeRole(rs.getString(3));
+				DetailCommande t = new DetailCommande();
+				t.setIdCommande(rs.getInt(1));
+				t.setCodeProduit(rs.getString(2));
+				t.setQuantite(rs.getInt(3));
 				t.setStimestamp(rs.getTimestamp(4));
 				result.add(t);
 			}

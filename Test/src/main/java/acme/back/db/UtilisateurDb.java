@@ -1,15 +1,15 @@
-package back.db;
+package acme.back.db;
 
-import util.Connexion;
-import util.BizException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import back.metier.Role;
+import acme.back.metier.Utilisateur;
+import acme.util.BizException;
+import acme.util.Connexion;
 
-public class RoleDb {
+public class UtilisateurDb {
 
 	private static PreparedStatement selectAll;
 	private static PreparedStatement selectByKey;
@@ -17,50 +17,51 @@ public class RoleDb {
 	private static PreparedStatement insert;
 	private static PreparedStatement deleteByKey;
 
-	public RoleDb(){}
+	public UtilisateurDb(){}
 
 	private static void statementSelectAll(Connexion c) throws SQLException {
 		selectAll = c.getConnection().prepareStatement(
-		"SELECT CODE_ROLE, LIBELLE_ROLE, STIMESTAMP FROM role");
+		"SELECT LOGIN, PSW, CODE_ROLE, STIMESTAMP FROM utilisateur");
 	}
 	private static void statementSelectByKey(Connexion c) throws SQLException {
 		selectByKey = c.getConnection().prepareStatement(
-		"SELECT CODE_ROLE, LIBELLE_ROLE, STIMESTAMP FROM role " + 
-		"WHERE CODE_ROLE = ? " ); 
+		"SELECT LOGIN, PSW, CODE_ROLE, STIMESTAMP FROM utilisateur " + 
+		"WHERE LOGIN = ? " ); 
  	}
 	private static void statementUpdateByKey(Connexion c) throws SQLException {
 		updateByKey = c.getConnection().prepareStatement(
-		"UPDATE role " + 
-		"SET 		LIBELLE_ROLE = ? " + 
-		"WHERE CODE_ROLE = ? "); 
+		"UPDATE utilisateur " + 
+		"SET 		PSW = ?, " +  
+		"CODE_ROLE = ? " + 
+		"WHERE LOGIN = ? "); 
 	}
 	private static void statementInsert(Connexion c) throws SQLException {
 		insert = c.getConnection().prepareStatement(
-		"INSERT INTO role " + 
-		"(CODE_ROLE, LIBELLE_ROLE) " + 
-		"values(?, ?)");
+		"INSERT INTO utilisateur " + 
+		"(LOGIN, PSW, CODE_ROLE) " + 
+		"values(?, ?, ?)");
 	}
 	private static void statementDeleteByKey(Connexion c) throws SQLException {
 		deleteByKey = c.getConnection().prepareStatement(
-		"DELETE FROM role " + 
-		"WHERE CODE_ROLE = ? "); 
+		"DELETE FROM utilisateur " + 
+		"WHERE LOGIN = ? "); 
 	}
-	public static int deleteByKey(Connexion c, Role t) throws BizException {
+	public static int deleteByKey(Connexion c, Utilisateur t) throws BizException {
 		ResultSet rs = null;
 		int result;
 		try {
 			statementSelectByKey(c);
 			statementDeleteByKey(c);
-			selectByKey.setString(1, t.getCodeRole());
+			selectByKey.setString(1, t.getLogin());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if(rs.next()) {
-				if (rs.getTimestamp(3).after(t.getStimestamp())) {
+				if (rs.getTimestamp(4).after(t.getStimestamp())) {
 					throw new BizException("Data modified by another user");
 				}
 			}
 			else { throw new BizException("Data modified by another user"); }
-			deleteByKey.setString(1, t.getCodeRole());
+			deleteByKey.setString(1, t.getLogin());
 			result = deleteByKey.executeUpdate();
 			if (rs != null) rs.close();
 			return result;
@@ -69,18 +70,19 @@ public class RoleDb {
 			throw new BizException(sqle.getMessage());
 		}
 	}
-	public static int insert(Connexion c, Role t) throws BizException {
+	public static int insert(Connexion c, Utilisateur t) throws BizException {
 		ResultSet rs = null;
 		int result;
 		try {
 			statementSelectByKey(c);
 			statementInsert(c);
-			selectByKey.setString(1, t.getCodeRole());
+			selectByKey.setString(1, t.getLogin());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if (rs.next()) throw new BizException("Data already exists");
-			insert.setString(1, t.getCodeRole());
-			insert.setString(2, t.getLibelleRole());
+			insert.setString(1, t.getLogin());
+			insert.setString(2, t.getPsw());
+			insert.setString(3, t.getCodeRole());
 			result = insert.executeUpdate();
 			if (rs != null) rs.close();
 			return result;
@@ -89,23 +91,24 @@ public class RoleDb {
 			throw new BizException(sqle.getMessage());
 		}
 	}
-	public static int updateByKey(Connexion c, Role t) throws BizException {
+	public static int updateByKey(Connexion c, Utilisateur t) throws BizException {
 		ResultSet rs = null;
 		int result;
 		try {
 			statementSelectByKey(c);
 			statementUpdateByKey(c);
-			selectByKey.setString(1, t.getCodeRole());
+			selectByKey.setString(1, t.getLogin());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if(rs.next()) {
-				if (rs.getTimestamp(3).after(t.getStimestamp())) {
+				if (rs.getTimestamp(4).after(t.getStimestamp())) {
 					throw new BizException("Data modified by another user");
 				}
 			}
 			else { throw new BizException("Data modified by another user"); }
-			updateByKey.setString(1, t.getLibelleRole());
+			updateByKey.setString(1, t.getPsw());
 			updateByKey.setString(2, t.getCodeRole());
+			updateByKey.setString(3, t.getLogin());
 			result = updateByKey.executeUpdate();
 			if (rs != null) rs.close();
 			return result;
@@ -114,18 +117,19 @@ public class RoleDb {
 			throw new BizException(sqle.getMessage());
 		}
 	}
-	public static Role getByKey(Connexion c, Role t) throws BizException {
+	public static Utilisateur getByKey(Connexion c, Utilisateur t) throws BizException {
 		ResultSet rs = null;
-		Role result = new Role();
+		Utilisateur result = new Utilisateur();
 		try {
 			statementSelectByKey(c);
-			selectByKey.setString(1, t.getCodeRole());
+			selectByKey.setString(1, t.getLogin());
 			rs = selectByKey.executeQuery();
 			rs.beforeFirst();
 			if (rs.next()) {
-				result.setCodeRole(rs.getString(1));
-				result.setLibelleRole(rs.getString(2));
-				result.setStimestamp(rs.getTimestamp(3));
+				result.setLogin(rs.getString(1));
+				result.setPsw(rs.getString(2));
+				result.setCodeRole(rs.getString(3));
+				result.setStimestamp(rs.getTimestamp(4));
 			}
 			if (rs != null) rs.close();
 			return result;
@@ -143,10 +147,11 @@ public class RoleDb {
 			result = new ArrayList();
 			rs.beforeFirst();
 			while (rs.next()) {
-				Role t = new Role();
-				t.setCodeRole(rs.getString(1));
-				t.setLibelleRole(rs.getString(2));
-				t.setStimestamp(rs.getTimestamp(3));
+				Utilisateur t = new Utilisateur();
+				t.setLogin(rs.getString(1));
+				t.setPsw(rs.getString(2));
+				t.setCodeRole(rs.getString(3));
+				t.setStimestamp(rs.getTimestamp(4));
 				result.add(t);
 			}
 			if (rs != null) rs.close();

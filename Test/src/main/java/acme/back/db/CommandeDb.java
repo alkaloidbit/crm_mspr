@@ -1,13 +1,13 @@
-package back.db;
+package acme.back.db;
 
-import util.Connexion;
-import util.BizException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import back.metier.Commande;
+import acme.back.metier.Commande;
+import acme.util.BizException;
+import acme.util.Connexion;
 
 public class CommandeDb {
 
