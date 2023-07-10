@@ -23,14 +23,6 @@
 		<url-pattern>/main</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>OrderDetails</servlet-name>
-		<servlet-class>com.mspr.servlets.OrderDetails</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>OrderDetails</servlet-name>
-		<url-pattern>/order_details</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>Employee</servlet-name>
 		<servlet-class>com.mspr.servlets.Employee</servlet-class>
 	</servlet>
