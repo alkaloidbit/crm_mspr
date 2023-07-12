@@ -3,6 +3,10 @@ package acme.back.servlet;
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
+<<<<<<<< HEAD:MSPR/src/main/java/acme/back/servlet/Routeur.java
+========
+import jakarta.servlet.annotation.WebServlet;
+>>>>>>>> building_admin_adminlte:MSPR/src/main/java/back/servlet/Routeur.java
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
