@@ -1,6 +1,5 @@
-<%@ page contentType="text/html; charset=iso-8859-1"
-	language="java" 
-%>
+<%@ page contentType="text/html; charset=iso-8859-1" language="java" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -35,14 +34,14 @@ function unloadMenu() {
   		<p>&nbsp;</p>
 	</div>
 	<FORM method=post action="./Routeur">
-	<table align="center" width="172" border="0">
-  		<tr><td align="center"><input type="text" name="user" value="User"/></td></tr>
-  		<tr><td align="center"><input type="password" name="password" value="Password"/></td></tr>
-  		<tr><td align="center">
-			<input name="connection" type="submit" value="Connection"/>
-			<input name="cancel" type="reset" value="Cancel"/>
-		</td></tr>
-	</table>
+		<table align="center" width="172" border="0">
+	  		<tr><td align="center"><input type="text" name="user" value="User"/></td></tr>
+	  		<tr><td align="center"><input type="password" name="password" value="Password"/></td></tr>
+	  		<tr><td align="center">
+				<input name="connection" type="submit" value="Connection"/>
+				<input name="cancel" type="reset" value="Cancel"/>
+			</td></tr>
+		</table>
 	</FORM>
 </body>
 </html>
