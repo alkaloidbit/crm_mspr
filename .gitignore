@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 Test/.classpath
 Test/.classpath
 Test/.classpath
 Test/.settings/org.eclipse.wst.common.project.facet.core.xml
 Test/log.txt
+=======
+.settings
+target
+>>>>>>> 34070ec7690348a8ec4b600812475c9044a14818
