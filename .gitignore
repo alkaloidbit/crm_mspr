@@ -9,3 +9,5 @@ Test/log.txt
 .settings
 target
 >>>>>>> 34070ec7690348a8ec4b600812475c9044a14818
+Test/build/classes/acme/util/Proprietes.class
+Test/src/main/webapp/jsp/stocks.js
