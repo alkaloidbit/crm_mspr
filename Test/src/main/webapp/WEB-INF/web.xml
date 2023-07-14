@@ -14,11 +14,11 @@
 		<session-timeout>60</session-timeout>
 	</session-config>
 	<servlet>
-		<servlet-name>Routeur</servlet-name>
-     	<servlet-class>acme.back.servlet.Routeur</servlet-class>
+		<servlet-name>Authentification</servlet-name>
+     	<servlet-class>acme.back.servlet.Authentification</servlet-class>
     </servlet>
 	<servlet-mapping>
-		<servlet-name>Routeur</servlet-name>
-       	<url-pattern>/Routeur</url-pattern>
+		<servlet-name>Authentification</servlet-name>
+       	<url-pattern>/Authentification</url-pattern>
     </servlet-mapping>
 </web-app>

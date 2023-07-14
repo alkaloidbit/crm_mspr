@@ -1,13 +1,15 @@
 package acme.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Proprietes extends Properties{
+public class Proprietes extends Properties {
 	
 	private static final long serialVersionUID = 1L;
-	private final String CHEMIN = "db.properties";
+	private final String CHEMIN = "D:\\Data\\Jerome\\Projets\\crm_mspr.git\\Test\\db.properties";
+	//private final String CHEMIN = "webapps/db.properties";
 	private final String CLASSE = "Proprietes";
     private static Proprietes singleton = null;
     private Log l = Log.getLog();
@@ -31,7 +33,10 @@ public class Proprietes extends Properties{
     }
     
     private Proprietes getProprietes() {
-        try {                
+        try {
+        	String pwd = System.getProperty(".");
+            System.out.println("Le répertoire courant est : " + pwd);
+            
             FileInputStream fis = new FileInputStream(CHEMIN);
             this.load(fis);
             fis.close();
