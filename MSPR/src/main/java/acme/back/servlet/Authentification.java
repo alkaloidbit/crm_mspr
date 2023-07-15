@@ -35,7 +35,7 @@ public class Authentification extends HttpServlet {
 				//password que l'on hash (Cela devrait se faire dans la jsp mais je n'y arrive pas !)
 				ab.setPassword(Utilitaire.getStringMD5(request.getParameter("password")));
 				ab = AuthentificationService.getService().authenticate(ab);
-				
+				System.out.println("ab : " + ab);
 				//Pour communiquer entre le serveur et le client on passe par la session qui est une hashmap (cle/valeur)
 				//on choisit arbitrairement une cle (string et on lui associe un objet que l'on pourra récuperer dans la jsp)
 				session.setAttribute("authentification", ab);

@@ -11,7 +11,7 @@ public class Proprietes extends Properties {
 	
 	private static final long serialVersionUID = 1L;
 	private final String CHEMIN = "C:/Users/Jérôme/git/crm_mspr/MSPR/db.properties";
-	//private final String CHEMIN = "webapps/db.properties";
+	//private final String CHEMIN = "../webapp/db.properties";
 	private final String CLASSE = "Proprietes";
     private static Proprietes singleton = null;
     private Log l = Log.getLog();

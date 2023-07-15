@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<META http-equiv="Pragma" CONTENT="no-cache">
+<META http-equiv="Pragma" CONTENT="no-cache" />
 <title>Login</title>
 <style type="text/css">
 <!--
@@ -15,6 +15,7 @@
 </style>
 <%	
 	String msg = (String)request.getSession().getAttribute("erreur");
+	System.out.println ("msg="+msg);
 %>
 <script language="javascript" src="./jsp/mspr.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">

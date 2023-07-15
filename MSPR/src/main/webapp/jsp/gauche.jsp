@@ -103,6 +103,27 @@ a.order {color: #339900;}
 		<li class=""><a href="../Commande?parametre=menuCommande&parent=null" title="Commande" target="mainFrame" class="">Commande</a>
 			<ul>
 				<li><a href="../Commande?parametre=menuCommande&parent=menuCommande" title="Commande" target="mainFrame" class="">Commande</a></li>
+				<li><a href="../Commande?parametre=menuHistorique&parent=menuCommande" title="Historique" target="mainFrame" class="">Historique</a></li>
+			</ul>
+		</li>
+		<li class=""><a href="../Client?parametre=menuClient&parent=null" title="Client" target="mainFrame" class="">Client</a>
+			<ul>
+				<li><a href="../Client?parametre=menuClient&parent=menuClient" title="Client" target="mainFrame" class="">Client</a></li>
+			</ul>
+		</li>
+		<li class=""><a href="../Produit?parametre=menuProduit&parent=null" title="Produit" target="mainFrame" class="">Produit</a>
+			<ul>
+				<li><a href="../Produit?parametre=menuProduit&parent=menuProduit" title="Produit" target="mainFrame" class="">Produit</a></li>
+			</ul>
+		</li>
+		<li class=""><a href="../Utilisateur?parametre=menuUtilisateur&parent=null" title="Utilisateur" target="mainFrame" class="">Utilisateur</a>
+			<ul>
+				<li><a href="../Utilisateur?parametre=menuUtilisateur&parent=menuUtilisateur" title="Utilisateur" target="mainFrame" class="">Utilisateur</a></li>
+			</ul>
+		</li>
+		<li class=""><a href="../Statistique?parametre=menuStatistique&parent=null" title="Statistique" target="mainFrame" class="">Statistique</a>
+			<ul>
+				<li><a href="../Statistique?parametre=menuStatistique&parent=menuStatistique" title="Statistique" target="mainFrame" class="">Statistique</a></li>
 			</ul>
 		</li>
 		<li class=""><a href="../Authentification?parametre=menuDeconnexion&parent=null" title="Deconnexion" target="mainFrame" class="Deconnexion">Déconnexion</a>

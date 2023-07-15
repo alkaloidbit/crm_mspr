@@ -11,13 +11,6 @@ function isEntier(champ) {
 	return true;
 }
 /**
- * Fonction qui renvoie vrai si le champ est null ou vide.
- */
-function isNull(champ) {
-	if (champ == "" || champ == null) {	return true; }
-	return false;
-}
-/**
  * Fonction qui renvoie vrai si le champ est au format date (JJ/MM/AAAA).
  */
 function isDateFormat(champ) {
@@ -52,18 +45,6 @@ function compareDate(dateDebut, dateFin) {
 function isNull(champ) {
 	if (champ == "" || champ == null) {	return true; }
 	return false;
-}
-/**
- * Fonction qui renvoie vrai si le champ est au format date (JJ/MM/AAAA).
- */
-function isDateFormat(champ) {
-	if (champ.length != 10) return false;
-	if (isEntier(champ.substr(0, 2)) == false || isEntier(champ.substr(3, 2)) == false || isEntier(champ.substr(6, 4)) == false) return false;
-	if (champ.substr(2, 1) != "/" || champ.substr(5, 1) != "/") return false;
-	if (parseInt(champ.substr(0, 2), 10) < 1 || parseInt(champ.substr(0, 2), 10) > 31) return false;
-	if (parseInt(champ.substr(3, 2), 10) < 1 || parseInt(champ.substr(3, 2), 10) > 12) return false;
-	if (parseInt(champ.substr(6, 4), 10) < 1950 || parseInt(champ.substr(6, 4), 10) > 2100) return false;
-	return true;
 }
 /**
  * Fonction qui renvoie vrai si le champ contient exactement le nombre n de caracteres.

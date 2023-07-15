@@ -36,10 +36,9 @@ public class AuthentificationService {
 		try {
 			Utilisateur u;
 			u = AuthentificationBeanToMetier(ab).select(con);
-			if (u.getLogin() != null && u.getPsw() != null) {
+			if (u.getPsw() != null) {
 				if (ab.getPassword().compareTo(u.getPsw()) == 0) {
 					result = MetierToAuthentificationBean(u);
-					//result.setAuthenticate(Boolean.TRUE);
 				} else {
 					throw new BizException("Mot de passe incorrect");
 				}
@@ -48,6 +47,7 @@ public class AuthentificationService {
 			}
 			return result;
 		} catch (BizException be) {
+			be.printStackTrace();
 			throw be;
 		}
 	}
