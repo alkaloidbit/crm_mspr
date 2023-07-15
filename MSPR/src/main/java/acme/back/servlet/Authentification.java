@@ -58,10 +58,10 @@ public class Authentification extends HttpServlet {
 				getServletConfig().getServletContext().getRequestDispatcher("/jsp/erreur.jsp").forward(request, response);
 			}			
 		}
-		//En cas d'erreur on renseigne le message d'erreur dans la session sous la forme de string
 		catch(BizException be) {
 			try {
 				be.printStackTrace();
+				//En cas d'erreur on renseigne le message d'erreur dans la session sous forme de string
 				session.setAttribute("erreur", be.getMessage());
 				getServletConfig().getServletContext().getRequestDispatcher(pageApresErreur).forward(request, response);
 			} catch (Exception e) { e.printStackTrace(); }

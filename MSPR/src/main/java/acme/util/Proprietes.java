@@ -1,6 +1,5 @@
 package acme.util;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,7 +10,7 @@ public class Proprietes extends Properties {
 	
 	private static final long serialVersionUID = 1L;
 	private final String CHEMIN = "C:/Users/Jérôme/git/crm_mspr/MSPR/db.properties";
-	//private final String CHEMIN = "../webapp/db.properties";
+	//private final String CHEMIN = "/MSPR/src/main/webapp/db.properties";
 	private final String CLASSE = "Proprietes";
     private static Proprietes singleton = null;
     private Log l = Log.getLog();

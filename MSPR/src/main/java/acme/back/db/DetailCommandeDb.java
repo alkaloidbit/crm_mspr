@@ -16,6 +16,7 @@ public class DetailCommandeDb {
 	private static PreparedStatement updateByKey;
 	private static PreparedStatement insert;
 	private static PreparedStatement deleteByKey;
+	private static PreparedStatement selectByIdCommande;
 
 	public DetailCommandeDb(){}
 
@@ -47,6 +48,35 @@ public class DetailCommandeDb {
 		"DELETE FROM detail_commande " + 
 		"WHERE ID_COMMANDE = ? " +
 		"AND CODE_PRODUIT = ? "); 
+	}
+	private static void statementSelectByIdCommande(Connexion c) throws SQLException {
+		selectByIdCommande = c.getConnection().prepareStatement(
+		"SELECT ID_COMMANDE, CODE_PRODUIT, QUANTITE, STIMESTAMP FROM detail_commande " + 
+		"WHERE ID_COMMANDE = ? "); 
+ 	}
+	public static ArrayList<DetailCommande> getByIdCommande(Connexion c, DetailCommande t) throws BizException {
+		ResultSet rs = null;
+		ArrayList<DetailCommande> result;
+		try {
+			statementSelectByIdCommande(c);
+			selectByIdCommande.setInt(1, t.getIdCommande());
+			rs = selectByIdCommande.executeQuery();
+			result = new ArrayList<DetailCommande>();
+			rs.beforeFirst();
+			while (rs.next()) {
+				DetailCommande dt = new DetailCommande();
+				dt.setIdCommande(rs.getInt(1));
+				dt.setCodeProduit(rs.getString(2));
+				dt.setQuantite(rs.getInt(3));
+				dt.setStimestamp(rs.getTimestamp(4));
+				result.add(dt);
+			}
+			if (rs != null) rs.close();
+			return result;
+		}
+		catch(SQLException sqle) {
+			throw new BizException(sqle.getMessage());
+		}
 	}
 	public static int deleteByKey(Connexion c, DetailCommande t) throws BizException {
 		ResultSet rs = null;
