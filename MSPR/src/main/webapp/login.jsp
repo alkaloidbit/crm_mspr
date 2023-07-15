@@ -48,7 +48,7 @@ function soumet() {
 	<FORM method=post action="Authentification">
 	<table align="center" width="300" border="0">
   		<tr><td align="center"><input type="text" name="login" maxlength="30" value=""/></td></tr>
-  		<tr><td align="center"><input type="password" name="password" maxlength="30" value="" onclick="return soumet()"/></td></tr>
+  		<tr><td align="center"><input type="password" name="password" maxlength="30" value=""/></td></tr>
   		<tr><td align="center">
 			<input name="connexion" type="submit" value="connexion"/>
 		</td></tr>

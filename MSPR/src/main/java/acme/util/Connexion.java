@@ -44,9 +44,15 @@ public class Connexion {
 	
 	private void connect() {
 		try {
+			Class.forName("org.gjt.mm.mysql.Driver");
+			System.out.println(Proprietes.getSingleton().getProperty("database") + "?" +
+					"user=" + Proprietes.getSingleton().getProperty("user")
+					+ "&password=" + Proprietes.getSingleton().getProperty("password"));
+			
 			c = DriverManager.getConnection(Proprietes.getSingleton().getProperty("database") + "?" +
 											"user=" + Proprietes.getSingleton().getProperty("user")
 											+ "&password=" + Proprietes.getSingleton().getProperty("password"));
+			
 		}
 		catch (Exception e) {
 			l.println("Error loading driver", CLASSE);

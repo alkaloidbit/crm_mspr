@@ -3,12 +3,14 @@ package acme.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Proprietes extends Properties {
 	
 	private static final long serialVersionUID = 1L;
-	private final String CHEMIN = "D:\\Data\\Jerome\\Projets\\crm_mspr.git\\Test\\db.properties";
+	private final String CHEMIN = "C:/Users/Jérôme/git/crm_mspr/MSPR/db.properties";
 	//private final String CHEMIN = "webapps/db.properties";
 	private final String CLASSE = "Proprietes";
     private static Proprietes singleton = null;
@@ -34,8 +36,9 @@ public class Proprietes extends Properties {
     
     private Proprietes getProprietes() {
         try {
-        	String pwd = System.getProperty(".");
-            System.out.println("Le répertoire courant est : " + pwd);
+        	Path currentRelativePath = Paths.get("");
+        	String s = currentRelativePath.toAbsolutePath().toString();
+        	System.out.println("Current absolute path is: " + s);
             
             FileInputStream fis = new FileInputStream(CHEMIN);
             this.load(fis);
