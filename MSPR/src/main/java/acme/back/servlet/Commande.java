@@ -26,6 +26,25 @@ public class Commande extends HttpServlet {
 		String pageApresErreur = "/jsp/erreur.jsp";
 		
 		try {
+			if ("Rechercher".equals(request.getParameter("rechercher")))  {
+				System.out.println("Je passe");
+				CommandeBean cb = (CommandeBean)session.getAttribute("cb");
+				//idCommande
+				String d = (String)request.getParameter("idCommande");
+				if (d == null || d == "") { cb.setIdCommande(0); }
+				else { cb.setIdCommande(Integer.parseInt(d)); }
+				//Client
+				d = (String)request.getParameter("nom");
+				if (d == null || d == "") { cb.setNomClient("%"); }
+				else { cb.setNomClient(d); }
+				//dateCommande
+				d = (String)request.getParameter("dateCommande");
+				if (d != null && d != "") { cb.setDateCommande(Utilitaire.getDateAmericaine(d)); }
+				else { cb.setDateCommande(null); }
+				session.setAttribute("cb", cb);
+				System.out.println("cb="+cb);
+				CommandeService.getService().search(cb);
+			} else 
 			//Je viens du menu commande
 			if ("menuCommande".equals(request.getParameter("parametre"))) {
 				System.out.println("Menucommande");

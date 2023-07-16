@@ -25,6 +25,34 @@ public class CommandeService {
 		if (singleton == null) singleton = new CommandeService();
 		return singleton;
 	}
+	public ArrayList<CommandeBean> search(CommandeBean cb) throws BizException {
+		
+		ArrayList<CommandeBean> result;
+		Connexion con = new Connexion();
+		
+		try {
+			result = search(cb, con);
+			con.close();
+			return result;
+		} catch (BizException be) {
+			con.close();
+			throw be;
+		}
+	}
+	public ArrayList<CommandeBean> search(CommandeBean cb, Connexion con) throws BizException {
+		
+		ArrayList<CommandeBean> result = new ArrayList<CommandeBean>();
+		Commande cm = commandeBeanToCommande(cb);
+		try {
+			ArrayList<Commande> commandes = new ArrayList<Commande>();
+			commandes = CommandeDb.search(con, cm);
+			System.out.println(commandes);
+			return result;
+		} catch (BizException be) {
+			be.printStackTrace();
+			throw be;
+		}
+	}
 	public ArrayList<CommandeBean> getAllCommandes() throws BizException {
 		
 		ArrayList<CommandeBean> result;
@@ -51,13 +79,13 @@ public class CommandeService {
 				for (DetailCommande detailCommande : dcs) {
 					Produit p = new Produit();
 					p.setCodeProduit(detailCommande.getCodeProduit());
-					p.select(con);
+					p = p.select(con);
 					DetailCommandeBean dcb = detailCommandeToDetailCommandeBean(detailCommande, p);
 					dcbs.add(dcb);
 				}
 				Client cl = new Client();
 				cl.setCodeClient(commande.getCodeClient());
-				cl.select(con);
+				cl = cl.select(con);
 				result.add(commandeToCommandeBean(commande, cl, dcbs));
 			}
 			return result;
@@ -79,6 +107,13 @@ public class CommandeService {
 			be.printStackTrace();
 			throw be;
 		}
+	}
+	private Commande commandeBeanToCommande(CommandeBean cb) {
+		Commande result = new Commande();
+		result.setDate(cb.getDateCommande());
+		result.setIdCommande(cb.getIdCommande());
+		result.setNomClient(cb.getNomClient());
+		return result;
 	}
 	private DetailCommandeBean detailCommandeToDetailCommandeBean(DetailCommande dc, Produit p) {
 		DetailCommandeBean result = new DetailCommandeBean();

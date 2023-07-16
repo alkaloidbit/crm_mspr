@@ -23,15 +23,13 @@ function loadMenu() {
 	return true;
 }
 function verifRecherche() {
-	if (!isEntier(window.document.forms[0].idCommande.value)) {
-		window.document.forms[0].idCommande.focus();
-		alert("Format d'entier incorrect")
+	if (isNull(window.document.forms[0].codeArticle.value) && isNull(window.document.forms[0].codeCommande.value) && isNull(window.document.forms[0].codeClient.value) && isNull(window.document.forms[0].dateCommande.value)) {
+		window.document.forms[0].codeCommande.focus();
 		return false;
 	}
 	if (isNull(window.document.forms[0].dateCommande.value)) return true;
 	if (isDateFormat(window.document.forms[0].dateCommande.value) == false) {
 		window.document.forms[0].dateCommande.focus();
-		alert("Format de date erroné : jj/mm/aaaa");
 		return false;
 	}
 	return true;
@@ -39,7 +37,6 @@ function verifRecherche() {
 
 function verification() {
 if (window.document.forms[0].simu.value == "") {
-	alert("Veuillez sélectionner une commande")
 	return false;
 } else { return true; }}
 </script>

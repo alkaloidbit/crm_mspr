@@ -13,19 +13,65 @@ public class Commande {
 	private int idCommande;
 	private String codeClient;
 	private Date date;
-	private Timestamp stimetamp;
+	private Timestamp stimestamp;
+	
+	private String nomClient;
+	private String codeProduit;
+	private String libelleProduit;
+	private double prix;
+	private int quantite;
 
 	public Commande(){}
 
 	public int getIdCommande() { return idCommande; }
 	public String getCodeClient() { return codeClient; }
 	public Date getDate() { return date; }
-	public Timestamp getStimestamp() { return stimetamp; }
+	public Timestamp getStimestamp() { return stimestamp; }
 
 	public void setIdCommande(int idCommande){ this.idCommande = idCommande; }
 	public void setCodeClient(String codeClient){ this.codeClient = codeClient; }
 	public void setDate(Date date){ this.date = date; }
-	public void setStimestamp(Timestamp stimetamp){ this.stimetamp = stimetamp; }
+	public void setStimestamp(Timestamp stimetamp){ this.stimestamp = stimestamp; }
+
+	public String getNomClient() {
+		return nomClient;
+	}
+
+	public void setNomClient(String nomClient) {
+		this.nomClient = nomClient;
+	}
+	
+	public String getCodeProduit() {
+		return codeProduit;
+	}
+
+	public void setCodeProduit(String codeProduit) {
+		this.codeProduit = codeProduit;
+	}
+	
+	public String getLibelleProduit() {
+		return libelleProduit;
+	}
+
+	public void setLibelleProduit(String libelleProduit) {
+		this.libelleProduit = libelleProduit;
+	}
+	
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+	public int getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
+	}
 
 	public String toString() {
 		String message = "";
@@ -33,7 +79,7 @@ public class Commande {
 			"idCommande : " + idCommande + "\n" + 
 			"codeClient : " + codeClient + "\n" + 
 			"date : " + date + "\n" + 
-			"stimetamp : " + stimetamp + "\n" + 
+			"stimestamp : " + stimestamp + "\n" + 
 			 super.toString();
 		return message;
 	}

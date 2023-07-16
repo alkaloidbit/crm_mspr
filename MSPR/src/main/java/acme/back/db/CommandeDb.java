@@ -4,10 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import acme.back.metier.Commande;
 import acme.util.BizException;
 import acme.util.Connexion;
+import acme.util.Utilitaire;
 
 public class CommandeDb {
 
@@ -16,6 +18,7 @@ public class CommandeDb {
 	private static PreparedStatement updateByKey;
 	private static PreparedStatement insert;
 	private static PreparedStatement deleteByKey;
+	private static PreparedStatement search;
 
 	public CommandeDb(){}
 
@@ -46,6 +49,53 @@ public class CommandeDb {
 		deleteByKey = c.getConnection().prepareStatement(
 		"DELETE FROM commande " + 
 		"WHERE ID_COMMANDE = ? "); 
+	}
+	private static void statementSearch(Connexion c) throws SQLException {
+		search = c.getConnection().prepareStatement(
+		"SELECT c.ID_COMMANDE, c.CODE_CLIENT, c.DATE, cl.NOM, p.CODE_PRODUIT, p.LIBELLE_PRODUIT, p.PRIX, dc.QUANTITE, dc.STIMESTAMP "
+		+ "FROM commande c, client cl, produit p, detail_commande dc " 
+		+ "WHERE c.DATE <= ? " 
+		+ "AND c.ID_COMMANDE LIKE ? "
+		+ "AND cl.NOM LIKE ? "
+		+ "AND c.ID_COMMANDE = dc.ID_COMMANDE "
+		+ "AND c.CODE_CLIENT = cl.CODE_CLIENT "
+		+ "AND dc.CODE_PRODUIT = p.CODE_PRODUIT "
+		+ "ORDER BY c.ID_COMMANDE LIMIT 500");
+	}
+	public static ArrayList<Commande> search(Connexion c, Commande t) throws BizException {
+		ResultSet rs = null;
+		ArrayList<Commande> result = null;
+		try {
+			statementSearch(c);
+			if (t.getDate() == null) search.setString(1, Utilitaire.getDateAmericaine(new Date()));
+			else search.setString(1, t.getDate().toString());
+			if (t.getIdCommande() == 0) search.setString(2, "%");
+			else search.setString(2, String.valueOf(t.getIdCommande()));
+			if (t.getNomClient() == null || "".equals(t.getNomClient())) search.setString(3, "%");
+			else search.setString(3, t.getNomClient());
+			System.out.println(search);
+			rs = search.executeQuery();
+			result = new ArrayList<Commande>();
+			rs.beforeFirst();
+			while (rs.next()) {
+				Commande cm = new Commande();
+				cm.setIdCommande(rs.getInt(1));
+				cm.setCodeClient(rs.getString(2));
+				cm.setDate(rs.getDate(3));
+				cm.setNomClient(rs.getString(4));
+				cm.setCodeProduit(rs.getString(5));
+				cm.setLibelleProduit(rs.getString(6));
+				cm.setPrix(rs.getDouble(7));
+				cm.setQuantite(rs.getInt(8));
+				cm.setStimestamp(rs.getTimestamp(9));
+				result.add(cm);
+			}
+			if (rs != null) rs.close();
+			return result;
+		}
+		catch(SQLException sqle) {
+			throw new BizException(sqle.getMessage());
+		}
 	}
 	public static int deleteByKey(Connexion c, Commande t) throws BizException {
 		ResultSet rs = null;

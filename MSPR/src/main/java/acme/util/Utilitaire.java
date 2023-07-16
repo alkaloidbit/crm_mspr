@@ -27,6 +27,12 @@ public class Utilitaire {
 			return d.toString();
 		} catch (Exception e) { throw new BizException("Wrong date format."); }
 	}
+	public static String getDateAmericaine(Date date) throws BizException {
+		try {
+			StringBuffer d = (new SimpleDateFormat("yyyy/MM/dd")).format(date, new StringBuffer(), new FieldPosition(DateFormat.LONG));
+			return d.toString();
+		} catch (Exception e) { throw new BizException("Wrong date format."); }
+	}
 	public static String getStringMD5(String pString) throws BizException {
 		if (pString == null || "".equals(pString)) return "";
 		
