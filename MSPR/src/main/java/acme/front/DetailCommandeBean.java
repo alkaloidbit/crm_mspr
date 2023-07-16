@@ -54,8 +54,12 @@ public class DetailCommandeBean extends AbstractBean {
 
 	@Override
 	public String toString() {
-		return "DetailCommandeBean [codeProduit=" + codeProduit + ", libelleProduit=" + libelleProduit + ", quantite="
-				+ quantite + ", montant=" + montant + ", stimestamp=" + stimestamp + "]";
+		return "DetailCommandeBean " + "\n" 
+				+ "[codeProduit=" + codeProduit + "\n" + 
+				", libelleProduit=" + libelleProduit + "\n" + 
+				", quantite=" + quantite + "\n" + 
+				", montant=" + montant + "\n" +
+				", stimestamp=" + stimestamp + "]\n";
 	}
 
 }

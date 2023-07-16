@@ -1,14 +1,13 @@
 package acme.back.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
-import acme.back.service.AuthentificationService;
 import acme.back.service.CommandeService;
-import acme.front.AuthentificationBean;
 import acme.front.CommandeBean;
 import acme.util.BizException;
 import acme.util.Utilitaire;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class Commande extends HttpServlet {
 		
 		try {
 			if ("Rechercher".equals(request.getParameter("rechercher")))  {
-				System.out.println("Je passe");
+				System.out.println("Rechercher");
 				CommandeBean cb = (CommandeBean)session.getAttribute("cb");
 				//idCommande
 				String d = (String)request.getParameter("idCommande");
@@ -42,14 +41,50 @@ public class Commande extends HttpServlet {
 				if (d != null && d != "") { cb.setDateCommande(Utilitaire.getDateAmericaine(d)); }
 				else { cb.setDateCommande(null); }
 				session.setAttribute("cb", cb);
-				System.out.println("cb="+cb);
-				CommandeService.getService().search(cb);
+				ArrayList<CommandeBean> commandes = CommandeService.getService().search(cb);
+				System.out.println(commandes);
+				session.setAttribute("commandes", commandes);
+				getServletConfig().getServletContext().getRequestDispatcher("/jsp/commande.jsp").forward(request, response);
 			} else 
+			// On trie selon le critere "date"
+			if ("date".equals(request.getParameter("critere"))) {
+				pageApresErreur = "/jsp/commande.jsp";
+				ArrayList<CommandeBean> commandes = (ArrayList<CommandeBean>)session.getAttribute("commandes");
+				ComparateurCommandeBean c = ComparateurCommandeBean.getSingleton("date");
+				Collections.sort(commandes, c);
+				session.setAttribute("commande", commandes);
+				getServletConfig().getServletContext().getRequestDispatcher("/jsp/commande.jsp").forward(request, response);
+			} else 
+			// On trie selon le critere "idCommande"
+			if ("idCommande".equals(request.getParameter("critere"))) {
+				pageApresErreur = "/jsp/commande.jsp";
+				ArrayList<CommandeBean> commandes = (ArrayList<CommandeBean>)session.getAttribute("commandes");
+				ComparateurCommandeBean c = ComparateurCommandeBean.getSingleton("idCommande");
+				Collections.sort(commandes, c);
+				session.setAttribute("commande", commandes);
+				getServletConfig().getServletContext().getRequestDispatcher("/jsp/commande.jsp").forward(request, response);
+			} else 
+			// On trie selon le critere "nom"
+			if ("nom".equals(request.getParameter("critere"))) {
+				pageApresErreur = "/jsp/commande.jsp";
+				ArrayList<CommandeBean> commandes = (ArrayList<CommandeBean>)session.getAttribute("commandes");
+				ComparateurCommandeBean c = ComparateurCommandeBean.getSingleton("nom");
+				Collections.sort(commandes, c);
+				session.setAttribute("commande", commandes);
+				getServletConfig().getServletContext().getRequestDispatcher("/jsp/commande.jsp").forward(request, response);
+			} else 				
 			//Je viens du menu commande
 			if ("menuCommande".equals(request.getParameter("parametre"))) {
 				System.out.println("Menucommande");
-				session.setAttribute("commandes", CommandeService.getService().getAllCommandes());
-				session.setAttribute("cb", new CommandeBean());
+				CommandeBean cb = new CommandeBean();
+				cb.setDateCommande(null);
+				cb.setIdCommande(0);
+				cb.setNomClient("%");
+				ArrayList<CommandeBean> commandes = CommandeService.getService().search(cb);
+				System.out.println(commandes);
+				session.setAttribute("commandes", commandes);
+				cb.setNomClient("");
+				session.setAttribute("cb", cb);
 				getServletConfig().getServletContext().getRequestDispatcher("/jsp/commande.jsp").forward(request, response);
 			} else {
 				getServletConfig().getServletContext().getRequestDispatcher("/jsp/erreur.jsp").forward(request, response);

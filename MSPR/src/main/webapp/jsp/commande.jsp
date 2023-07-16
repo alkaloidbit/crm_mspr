@@ -23,7 +23,7 @@ function loadMenu() {
 	return true;
 }
 function verifRecherche() {
-	if (!isEntier(window.document.forms[0].idCommande.value)) {
+	if (!isEntierPos(window.document.forms[0].idCommande.value)) {
 		window.document.forms[0].idCommande.focus();
 		alert("Format d'entier incorrect")
 		return false;
@@ -86,7 +86,7 @@ if (window.document.forms[0].simu.value == "") {
         <td width="200"><div align="center"><font face="Tahoma"><a href="Commande?critere=idCommande" id="8" target="mainFrame" class="style1"><b>N° Commande</b></a></font></div></td>
         <td width="140"><div align="center"><font face="Tahoma"><a href="Commande?critere=date" id="9" target="mainFrame" class="style1"><b>Date</b></a></font></div></td>
 		<td width="236"><div align="center"><font face="Tahoma"><a href="Commande?critere=nom" id="10" target="mainFrame" class="style1"><b>Nom/Raison sociale</b></a></font></div></td>
-		<td width="140"><div align="center"><font face="Tahoma"><a href="Commande?critere=montant" id="11" target="mainFrame" class="style1"><b>Montant</b></a></font></div></td>		
+		<td width="140"><div align="center"><font face="Tahoma" class="style1"><b>Montant</b></a></font></div></td>		
 		</tr>
     </table></td>
     <td>&nbsp;</td>

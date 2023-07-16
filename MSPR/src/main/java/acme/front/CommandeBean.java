@@ -10,12 +10,14 @@ public class CommandeBean extends AbstractBean {
 	private String codeClient = "";
 	private String nomClient="";
 	private Date dateCommande;
-	private double montant;
 	private ArrayList<DetailCommandeBean> al = new  ArrayList<DetailCommandeBean>();
 	private Timestamp stimestamp;
 	
 	public CommandeBean() {}
 
+	public void addDetailCommandeBean(DetailCommandeBean dcb) {
+		al.add(dcb);
+	}
 	public int getIdCommande() {
 		return idCommande;
 	}
@@ -49,15 +51,11 @@ public class CommandeBean extends AbstractBean {
 	}
 	
 	public double getMontant() {
-		for (DetailCommandeBean dcb : al) 
-			montant = montant + dcb.getMontant();
-		return montant;
+		double somme = 0.0f;
+		for (DetailCommandeBean dcb : al)
+			somme = somme + dcb.getMontant();
+		return somme;
 	}
-
-	public void setMontant(double montant) {
-		this.montant = montant;
-	}
-
 	public ArrayList<DetailCommandeBean> getAl() {
 		return al;
 	}
@@ -76,9 +74,13 @@ public class CommandeBean extends AbstractBean {
 
 	@Override
 	public String toString() {
-		return "CommandeBean [idCommande=" + idCommande + ", codeClient=" + codeClient + ", nomClient=" + nomClient
-				+ ", dateCommande=" + dateCommande + ", montant=" + montant + ", al=" + al + ", stimestamp="
-				+ stimestamp + "]";
+		return " [idCommande=" + idCommande + "\n" +
+				", codeClient=" + codeClient + "\n" +
+				", nomClient=" + nomClient	+ "\n" +
+				", dateCommande=" + dateCommande + "\n" +
+				", montant=" + getMontant() + "\n" +
+				", al=" + al + "\n" +
+				", stimestamp="	+ stimestamp + "]\n";
 	}
 	
 }

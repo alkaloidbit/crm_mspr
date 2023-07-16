@@ -103,7 +103,6 @@ a.order {color: #339900;}
 		<li class=""><a href="../Commande?parametre=menuCommande&parent=null" title="Commande" target="mainFrame" class="">Commande</a>
 			<ul>
 				<li><a href="../Commande?parametre=menuCommande&parent=menuCommande" title="Commande" target="mainFrame" class="">Commande</a></li>
-				<li><a href="../Commande?parametre=menuHistorique&parent=menuCommande" title="Historique" target="mainFrame" class="">Historique</a></li>
 			</ul>
 		</li>
 		<li class=""><a href="../Client?parametre=menuClient&parent=null" title="Client" target="mainFrame" class="">Client</a>

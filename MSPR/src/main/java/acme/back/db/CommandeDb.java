@@ -68,7 +68,7 @@ public class CommandeDb {
 		try {
 			statementSearch(c);
 			if (t.getDate() == null) search.setString(1, Utilitaire.getDateAmericaine(new Date()));
-			else search.setString(1, t.getDate().toString());
+			else search.setString(1, Utilitaire.getDateAmericaine(t.getDate()));
 			if (t.getIdCommande() == 0) search.setString(2, "%");
 			else search.setString(2, String.valueOf(t.getIdCommande()));
 			if (t.getNomClient() == null || "".equals(t.getNomClient())) search.setString(3, "%");

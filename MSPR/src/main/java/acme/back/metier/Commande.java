@@ -31,7 +31,7 @@ public class Commande {
 	public void setIdCommande(int idCommande){ this.idCommande = idCommande; }
 	public void setCodeClient(String codeClient){ this.codeClient = codeClient; }
 	public void setDate(Date date){ this.date = date; }
-	public void setStimestamp(Timestamp stimetamp){ this.stimestamp = stimestamp; }
+	public void setStimestamp(Timestamp stimestamp){ this.stimestamp = stimestamp; }
 
 	public String getNomClient() {
 		return nomClient;

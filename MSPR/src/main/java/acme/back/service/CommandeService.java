@@ -44,9 +44,39 @@ public class CommandeService {
 		ArrayList<CommandeBean> result = new ArrayList<CommandeBean>();
 		Commande cm = commandeBeanToCommande(cb);
 		try {
-			ArrayList<Commande> commandes = new ArrayList<Commande>();
-			commandes = CommandeDb.search(con, cm);
-			System.out.println(commandes);
+			ArrayList<Commande> commandes = CommandeDb.search(con, cm);
+			CommandeBean cbt = null;
+			int pId = -1; 
+			for (int i=0; i<commandes.size(); i++) {
+				Commande tmp = commandes.get(i);
+				int cId = tmp.getIdCommande();
+				if (cId != pId) {
+					if (cbt != null) result.add(cbt);
+					cbt = new CommandeBean();
+					DetailCommandeBean dcb = new DetailCommandeBean();
+					cbt.setCodeClient(tmp.getCodeClient());
+					cbt.setDateCommande(tmp.getDate());
+					cbt.setIdCommande(tmp.getIdCommande());
+					cbt.setNomClient(tmp.getNomClient());
+					cbt.setStimestamp(tmp.getStimestamp());
+					dcb.setCodeProduit(tmp.getCodeProduit());
+					dcb.setLibelleProduit(tmp.getLibelleProduit());
+					dcb.setMontant(tmp.getPrix() * tmp.getQuantite());
+					dcb.setQuantite(tmp.getQuantite());
+					dcb.setStimestamp(tmp.getStimestamp());
+					cbt.addDetailCommandeBean(dcb);
+				} else {
+					DetailCommandeBean dcb = new DetailCommandeBean();
+					dcb.setCodeProduit(tmp.getCodeProduit());
+					dcb.setLibelleProduit(tmp.getLibelleProduit());
+					dcb.setMontant(tmp.getPrix() * tmp.getQuantite());
+					dcb.setQuantite(tmp.getQuantite());
+					dcb.setStimestamp(tmp.getStimestamp());
+					cbt.addDetailCommandeBean(dcb);	
+				}
+				if (i == (commandes.size()-1)) result.add(cbt);
+				pId = cId;
+			}
 			return result;
 		} catch (BizException be) {
 			be.printStackTrace();
